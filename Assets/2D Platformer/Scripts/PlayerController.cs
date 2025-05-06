@@ -1,3 +1,4 @@
+using Platformer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace Platformer
 
         void Update()
         {
-            if (Input.GetButton("Horizontal")) 
+            if (Input.GetButton("Horizontal"))
             {
                 moveInput = Input.GetAxis("Horizontal");
                 Vector3 direction = transform.right * moveInput;
@@ -46,17 +47,17 @@ namespace Platformer
             {
                 if (isGrounded) animator.SetInteger("playerState", 0); // Turn on idle animation
             }
-            if(Input.GetKeyDown(KeyCode.Space) && isGrounded )
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
                 rigidbody.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
             }
-            if (!isGrounded)animator.SetInteger("playerState", 2); // Turn on jump animation
+            if (!isGrounded) animator.SetInteger("playerState", 2); // Turn on jump animation
 
-            if(facingRight == false && moveInput > 0)
+            if (facingRight == false && moveInput > 0)
             {
                 Flip();
             }
-            else if(facingRight == true && moveInput < 0)
+            else if (facingRight == true && moveInput < 0)
             {
                 Flip();
             }
@@ -80,8 +81,13 @@ namespace Platformer
         {
             if (other.gameObject.tag == "Enemy")
             {
-                deathState = true; // Say to GameManager that player is dead
+                deathState = true; // Say to GameManager that player is dead 
             }
+            else if (other.gameObject.tag == "Spike")
+            {
+                deathState = true; // Say to GameManager that player is dead 
+            }
+
             else
             {
                 deathState = false;
